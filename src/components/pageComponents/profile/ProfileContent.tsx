@@ -16,15 +16,18 @@ import { useEffect, useState } from "react";
 import { SEO } from "@/components/SEO";
 // import { getUserSession } from "@hooks/getUserSession";
 import Button from "@/components/shared/Button";
+import { useUser } from "@/contexts/AuthContext";
 // import { User } from "@prisma/client";
 // import { PickVerificationIcon } from "@components/PickVerificationIcon";
 
 export const ProfileContent: NextPage = () => {
   const router = useRouter();
+  const user = useUser();
+  console.log(user);
   //   const { username } = router.query as { username: string };
   //   let getUser = trpc.user.getUser.useQuery({ username });
   //   let followUser = trpc.user.followUser.useMutation();
-  //   const [user, setUser] = useState(getUser.data?.user);
+    // const user, setUser] = useState(getUser.data?.user);
   //   let session = getUserSession();
   //   const [isFollowing, setIsFollowing] = useState(
   //     user?.followers.some((f) => f.followingId === session.id)
@@ -56,7 +59,12 @@ export const ProfileContent: NextPage = () => {
         {/* {user ? ( */}
         <>
           <div>
-            {/* <BgImg src={user?.bgImage!} /> */}
+            <BgImg
+              src={
+                user?.bgImage! ||
+                "https://i.pinimg.com/564x/8d/50/3d/8d503d0257dbe5c044e13d4a9ddc46fa.jpg"
+              }
+            />
             <div className="p-4">
               <div className="relative flex w-full items-center justify-between">
                 <div style={{ marginTop: "-5rem" }}>
@@ -67,14 +75,15 @@ export const ProfileContent: NextPage = () => {
                     size={130}
                   />
                 </div>
-                {/* {user.id === session.id ? (
-                //   <EditProfileBtn onClick={toggleModal} />
-                // ) : (
-                //   <MainButton
-                //     onClick={follow}
-                //     text={isFollowing ? "Unfollow" : "Follow"}
-                  />
-                )} */}
+                {user.id ? (
+                  <EditProfileBtn onClick={toggleModal} />
+                ) : (
+                  // <MainButton
+                  //   onClick={follow}
+                  //   text={isFollowing ? "Unfollow" : "Follow"}
+                  // />
+                  <></>
+                )}
               </div>
               <div className="mt-3 ml-3 w-full justify-center space-y-1">
                 <div>
@@ -122,9 +131,7 @@ export const ProfileContent: NextPage = () => {
           /> */}
         </>
         {/* ) : ( */}
-        <>
-          {/* <Spinner /> */}
-        </>
+        <>{/* <Spinner /> */}</>
         {/* )} */}
       </section>
     </>

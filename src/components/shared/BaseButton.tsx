@@ -12,18 +12,18 @@ export interface BaseButtonProps
   extends React.HTMLAttributes<HTMLButtonElement> {
   RightIcon?: React.ComponentType<Icon>;
   LeftIcon?: React.ComponentType<Icon>;
-  iconClass?: string;
+  iconClassName?: string;
 }
 
 const BaseButton = React.forwardRef<HTMLButtonElement, BaseButtonProps>(
   (props, ref) => {
-    const { className, children, LeftIcon, RightIcon, iconClass, ...rest } =
+    const { className, children, LeftIcon, RightIcon, iconClassName, ...rest } =
       props;
     return (
       <button className={classNames(className)} ref={ref} {...rest}>
-        {LeftIcon && <LeftIcon className={iconClass} size={30} />}
+        {LeftIcon && <LeftIcon className={iconClassName} size={30} />}
         {children}
-        {RightIcon && <RightIcon className={iconClass} size={30} />}
+        {RightIcon && <RightIcon className={iconClassName} size={30} />}
       </button>
     );
   }

@@ -15,7 +15,7 @@ export default function Home() {
   return (
     <React.Fragment>
       <SEO title="Home" />
-      <div className="mx-auto">
+      <div className={`${inter.className}  mx-auto`}>
         <div className="flex flex-row justify-center">
           <SidebarLeft />
           <HomeContent />
