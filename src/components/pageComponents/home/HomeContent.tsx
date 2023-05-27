@@ -10,13 +10,57 @@ import { useInView } from "react-intersection-observer";
 import MainTweet from "@/components/tweet/MainTweet";
 import { PageHead } from "@/components/PageHead";
 import { TweetInput } from "@/components/inputs/tweetInput/TweetInput";
+import client from "@/libs/axios";
+import { useUser } from "@/contexts/AuthContext";
+import { GoTrueClient } from "@supabase/gotrue-js";
+import supabase from "@/libs/supabase";
+import { replaceSpacing } from "@/utils/replaceText";
+import useTweets from "@/hooks/useTweets";
 // import { newTweet } from "../../../../server/src/router/routes/tweetRouter/newTweet";
 
 export default function HomeContent() {
   //   let getTweets = trpc.tweet.getAllTweets.useMutation();
-  const [tweets, setTweets] = useState([]);
+  // const [tweets, setTweets] = useState([]);
   //   const [hasMore, setHasMore] = useState(false);
 
+  const {tweets} = useTweets()
+  const [user, setUser] = useState();
+  const session = useUser();
+
+  async function getUser() {
+    const user = await client.get("/user/" + session?.id);
+    setUser(user?.data);
+  }
+
+  console.log(session);
+
+  console.log(tweets)
+
+  async function addUser() {
+    await supabase.from("User").insert({
+      id: session?.id,
+      username: replaceSpacing(session?.user_metadata?.name),
+      email: session?.user_metadata?.email,
+      provider: session?.app_metadata?.provider,
+    });   
+     await supabase.from("User").upsert({
+      id: session?.id,
+      username: replaceSpacing(session?.user_metadata?.name),
+      email: session?.user_metadata?.email,
+      profileImage: session?.user_metadata?.avatar_url,
+      provider: session?.app_metadata?.provider,
+    }).eq("id", session?.id);
+  }
+
+  useEffect(() => {
+    getUser();
+  }, []);
+
+  useEffect(() => {
+    addUser();
+  }, [session]);
+
+  console.log(user);
   const { ref, inView, entry } = useInView({
     threshold: 0,
   });
@@ -43,9 +87,9 @@ export default function HomeContent() {
   //     });
   //   }
 
-  //   useEffect(() => {
-  //     fetchTweets();
-  //   }, []);
+    // useEffect(() => {
+    //   fetchTweets();
+    // }, []);
 
   //   // Refetch tweets when inView and not loading
   //   useEffect(() => {

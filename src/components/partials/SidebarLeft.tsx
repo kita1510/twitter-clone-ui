@@ -13,6 +13,8 @@ import Button from "../shared/Button";
 import { useSession } from "@supabase/auth-helpers-react";
 import supabase from "@/libs/supabase";
 import { replaceSpacing } from "@/utils/replaceText";
+import client from "@/libs/axios";
+import TweetModal from "@/components/modals/TweetModal";
 
 export default function SidebarLeft({ active }: { active?: number }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -27,11 +29,11 @@ export default function SidebarLeft({ active }: { active?: number }) {
   function toggleModal2() {
     setIsOpen2(!isOpen2);
   }
-  // console.log(replaceSpacing("Luan Nguyen"))
 
   console.log(user);
   return (
     <>
+      <TweetModal isOpen={isOpen} closeModal={toggleModal} />
       <div className="h-screen xs:w-[88px] block xl:w-[275px]">
         <div className="fixed flex h-screen w-[68px] flex-col overflow-y-auto xs:w-[88px] xl:w-[275px]">
           <Logo />
@@ -100,13 +102,12 @@ function User() {
         <div className="flex flex-row items-center">
           <img
             className="w-16 h-16 rounded-full object-cover"
-            src="https://i.pinimg.com/564x/a2/20/de/a220de1effc62e0909b0af9f26bfa898.jpg"
+            src={user?.user_metadata?.avatar_url}
           />
           <div className="ml-2 hidden xl:block">
             <h1 className="flex text-sm font-bold text-gray-800 dark:text-white">
               <span className="truncate text-ellipsis ">
-                {/* {user.name || user.username} */}
-                Luan Nguyen
+                {user?.user_metadata?.name}
               </span>
               {/* <PickVerificationIcon color={"blue"} /> */}
             </h1>

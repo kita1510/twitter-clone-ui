@@ -17,8 +17,14 @@ export interface BaseButtonProps
 
 const BaseButton = React.forwardRef<HTMLButtonElement, BaseButtonProps>(
   (props, ref) => {
-    const { className, children, LeftIcon, RightIcon, iconClassName, ...rest } =
-      props;
+    const {
+      className,
+      children,
+      LeftIcon,
+      RightIcon,
+      iconClassName,
+      ...rest
+    } = props;
     return (
       <button className={classNames(className)} ref={ref} {...rest}>
         {LeftIcon && <LeftIcon className={iconClassName} size={30} />}

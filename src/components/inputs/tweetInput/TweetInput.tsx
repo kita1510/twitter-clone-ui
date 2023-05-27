@@ -9,6 +9,11 @@ import Avatar from "@/components/Avatar";
 import { OtherIcons } from "./OtherIcons";
 import { FilePreview } from "./FilePreview";
 import { compressFile } from "@/utils/comporessImage";
+import supabase from "@/libs/supabase";
+import { v4 as uuidv4 } from "uuid";
+import { useUser } from "@/contexts/AuthContext";
+import { QueryClient } from "@tanstack/react-query";
+import useCreateTweet from "@/hooks/useCreateTweet";
 // import { getUserSession } from "@hooks/getUserSession";
 
 type Inputs = {
@@ -16,8 +21,15 @@ type Inputs = {
 };
 export function TweetInput({ onPost }: { onPost?: any }) {
   const [isPosting, setIsPosting] = useState(false);
+  const [tweet, setTweet] = useState({ body: "" });
+  const queryClient = new QueryClient();
+
   //   let session = getUserSession();
   const [user, setUser] = useState({});
+  const session = useUser();
+
+  const { createTweet } = useCreateTweet();
+
   const {
     register,
     handleSubmit,
@@ -29,16 +41,17 @@ export function TweetInput({ onPost }: { onPost?: any }) {
   //   let newTweet = trpc.tweet.newTweet.useMutation();
 
   const [selectedFile, setSelectedFile] = useState<string | null>();
-  const onSubmit: SubmitHandler<Inputs> = (data) => {
+  console.log(selectedFile);
+  console.log();
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
     setIsPosting(true);
-    // newTweet.mutate({
-    //   body: data.body,
-    //   image: selectedFile || null,
-    // });
-    // if (!newTweet.isError) onPost(newTweet.data?.tweet);
+    // await supabase.from("Tweet").insert({id: uuidv4(), userId: session?.id, body: body });
+    // queryClient.invalidateQueries({queryKey:['tweet']})
+    createTweet(tweet, session?.id);
     reset();
     clearInputs();
   };
+  console.log(tweet);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -74,17 +87,17 @@ export function TweetInput({ onPost }: { onPost?: any }) {
     }
   }
 
-//   useEffect(() => {
-//     if (
-//       isPosting &&
-//       !newTweet.isLoading &&
-//       !newTweet.isError &&
-//       newTweet.data?.tweet
-//     ) {
-//       onPost(newTweet.data.tweet);
-//       setIsPosting(false);
-//     }
-//   }, [isPosting, newTweet, onPost]);
+  //   useEffect(() => {
+  //     if (
+  //       isPosting &&
+  //       !newTweet.isLoading &&
+  //       !newTweet.isError &&
+  //       newTweet.data?.tweet
+  //     ) {
+  //       onPost(newTweet.data.tweet);
+  //       setIsPosting(false);
+  //     }
+  //   }, [isPosting, newTweet, onPost]);
   if (!user) return <></>;
   return (
     <form
@@ -93,12 +106,13 @@ export function TweetInput({ onPost }: { onPost?: any }) {
     >
       <div className="flex  flex-shrink-0 p-4 pb-0">
         <div className="">
-          <Avatar avatarImage={"https://i.pinimg.com/736x/ec/52/f5/ec52f5b0b3c74022a9cefb8494514759.jpg"} />
+          <Avatar avatarImage={session?.user_metadata?.avatar_url} />
         </div>
         <div className="w-full p-2">
           <ReactTextareaAutosize
             {...register("body", { required: true })}
             maxRows={9}
+            onChange={(e) => setTweet({ body: e?.target?.value })}
             placeholder="What's happening?"
             className="h-10 w-full resize-none border-0 bg-transparent text-gray-900 placeholder-gray-400  focus:outline-none dark:text-white"
           />
