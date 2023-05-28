@@ -1,21 +1,29 @@
 /** @format */
 
+import { useUser } from "@/contexts/AuthContext";
+import useLikeTweet from "@/hooks/useLikeTweet";
 import { TweetProps } from "@/types";
+import classNames from "classnames";
 import React, { useEffect, useState } from "react";
-// import ReplyModal from "@/components/modals/ReplyModal";
+import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
+import ReplyModal from "../modals/ReplyModal";
 
-export function TweetActions(props: TweetProps) {
+export default function TweetActions(props: TweetProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const user = useUser();
+  const { likeTweet, unlikeTweet } = useLikeTweet();
   function closeModal() {
     setIsOpen(false);
   }
 
-  console.log(props)
+  const [interactionState, setInteractionState] = useState({
+    liked: false,
+    retweeted: false,
+    replied: false,
+  });
 
-  function like() {
-    // let result = likeTweet.mutate({ id: props.id });
-    // console.log("like", result);
-  }
+  // console.log(props);
+
   function reply() {
     setIsOpen(!isOpen);
     // let result = replyTweet.mutate({ id: props.id, body: "test" });
@@ -25,28 +33,25 @@ export function TweetActions(props: TweetProps) {
     // let result = reTweet0.mutate({ id: props.id });
     // console.log("reTweet", result);
   }
-  const [interactionState, setInteractionState] = useState({
-    liked: false,
-    retweeted: false,
-    replied: false,
-  });
 
   useEffect(() => {
-    // const isLiked = props.likes.some((l) => l.userId === data?.userData.id);
+    const isLiked = props?.Like?.some((l) => l?.userId === user?.id);
     // const isRetweeted = props.retweets.some(
     //     (r) => r.userId === data?.userData.id
     // );
     // const isReplied = props.replies.some((r) => r.userId === data?.userData.id);
     // console.log("isr", isReplied);
-    // setInteractionState({
-    //     liked: isLiked,
-    //     retweeted: isRetweeted,
-    //     replied: isReplied,
-    // });
-  }, []);
+    setInteractionState({
+      liked: isLiked,
+      retweeted: false,
+      replied: false,
+    });
+  }, [props]);
+
+  // console.log(interactionState?.liked);
   return (
     <div className="flex items-center">
-      {/* <ReplyModal tweet={props} isOpen={isOpen} closeModal={closeModal} /> */}
+      <ReplyModal tweet={props} isOpen={isOpen} closeModal={closeModal} />
       <div
         onClick={reply}
         className={`duration-350 flex flex-1 items-center text-xs ${
@@ -75,14 +80,21 @@ transition ease-in-out hover:text-blue-400 dark:hover:text-blue-400`}
         {props?.retweetCount}
       </div>
       <div
-        onClick={like}
-        className="duration-350 flex flex-1 items-center text-xs text-gray-800 transition ease-in-out hover:text-red-600 dark:text-white dark:hover:text-red-600"
+        onClick={() => interactionState.liked ? unlikeTweet(props) : likeTweet(props) }
+        className={classNames(
+          ` dark:text-white duration-350 flex flex-1 items-center text-xs transition ease-in-out hover:text-red-600  dark:hover:text-red-600`
+        )}
       >
-        <svg viewBox="0 0 24 24" fill="currentColor" className="mr-2 h-5 w-5">
+        {/* <svg viewBox="0 0 24 24" fill="currentColor" className="mr-2 h-5 w-5">
           <g>
             <path d="M12 21.638h-.014C9.403 21.59 1.95 14.856 1.95 8.478c0-3.064 2.525-5.754 5.403-5.754 2.29 0 3.83 1.58 4.646 2.73.814-1.148 2.354-2.73 4.645-2.73 2.88 0 5.404 2.69 5.404 5.755 0 6.376-7.454 13.11-10.037 13.157H12zM7.354 4.225c-2.08 0-3.903 1.988-3.903 4.255 0 5.74 7.034 11.596 8.55 11.658 1.518-.062 8.55-5.917 8.55-11.658 0-2.267-1.823-4.255-3.903-4.255-2.528 0-3.94 2.936-3.952 2.965-.23.562-1.156.562-1.387 0-.014-.03-1.425-2.965-3.954-2.965z" />
           </g>
-        </svg>
+        </svg> */}
+        {interactionState.liked ? (
+          <AiFillHeart className="mr-2" fill="red" color="red" size={20} />
+        ) : (
+          <AiOutlineHeart className="mr-2" size={20} />
+        )}
         {props?.likeCount}
       </div>
       <div className="duration-350 flex flex-1 items-center text-xs text-gray-800  transition ease-in-out hover:text-blue-400 dark:text-white dark:hover:text-blue-400">

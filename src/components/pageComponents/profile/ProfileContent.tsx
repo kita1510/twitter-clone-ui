@@ -4,7 +4,7 @@ import { type NextPage } from "next";
 import { PageHead } from "@/components/PageHead";
 import { useRouter } from "next/router";
 import { Url } from "./Url";
-import { Joined } from "./Joined";
+import { Joined } from "../../../icons/Joined";
 import { FollowStats } from "./FollowStats";
 import Avatar from "@/components/Avatar";
 import MainTweet from "@/components/tweet/MainTweet";
@@ -13,7 +13,6 @@ import { useEffect, useState } from "react";
 import EditProfileModal from "@/components/modals/EditProfileModal";
 // import { Spinner } from "@components/Spinner";
 import { SEO } from "@/components/SEO";
-// import { getUserSession } from "@hooks/getUserSession";
 import Button from "@/components/shared/Button";
 import { useUser } from "@/contexts/AuthContext";
 import { EditProfileBtn } from "./EditProfileBtn";
@@ -27,7 +26,7 @@ const ProfileContent: NextPage = () => {
   const user = useUser();
   console.log(user);
   const [userInfo, setUserInfo] = useState<User | undefined>();
-  const [tweets, setTweets] = useState<TweetProps | undefined>();
+  const [tweets, setTweets] = useState<TweetProps[] | undefined>();
 
   async function getUserInfo() {
     if (user) {
@@ -60,8 +59,8 @@ const ProfileContent: NextPage = () => {
     setIsOpen(!isOpen);
   }
 
-  console.log(user?.id);
-  console.log(tweets);
+  // console.log(user?.id);
+  // console.log(tweets);
 
   return (
     <>
@@ -80,28 +79,24 @@ const ProfileContent: NextPage = () => {
             <div className="p-4">
               <div className="relative flex w-full items-center justify-between">
                 <div style={{ marginTop: "-5rem" }}>
-                  <Avatar
-                    avatarImage={
-                      userInfo?.profileImage ||
-                      "https://i.pinimg.com/564x/61/33/f9/6133f9d829d6dae8186bcdc34507d037.jpg"
-                    }
-                    size={130}
-                  />
+                  <Avatar avatarImage={userInfo?.profileImage} size={130} />
                 </div>
-                {user?.id ? (
+                {user?.id === userInfo?.id ? (
                   <EditProfileBtn onClick={toggleModal} />
                 ) : (
-                  // <MainButton
-                  //   onClick={follow}
-                  //   text={isFollowing ? "Unfollow" : "Follow"}
-                  // />
-                  <></>
+                  <Button
+                  // onClick={follow}
+                  // text={isFollowing ? "Unfollow" : "Follow"}
+                  >
+                    <></>
+                    Follow
+                  </Button>
                 )}
               </div>
               <div className="mt-3 ml-3 w-full justify-center space-y-1">
                 <div>
                   <div className="flex items-center">
-                    <h2 className="flex items-center text-xl font-bold leading-6 text-white">
+                    <h2 className="flex items-center text-xl font-bold leading-6 text-black">
                       {userInfo?.username}
                     </h2>
                     {/* @ts-ignore */}
@@ -112,12 +107,12 @@ const ProfileContent: NextPage = () => {
                   </p>
                 </div>
                 <div className="mt-3">
-                  <p className="mb-2 max-w-full leading-tight text-white">
-                    {/* {user?.bio} */}
+                  <p className="mb-2 max-w-full leading-tight text-black">
+                    {userInfo?.bio}
                   </p>
                   <div className="flex text-gray-600">
                     <Url website={userInfo?.website!} />
-                    <Joined date={userInfo?.createdAt! || new Date()} />
+                    <Joined date={userInfo?.createdAt!} />
                   </div>
                 </div>
                 <FollowStats

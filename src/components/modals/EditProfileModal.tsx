@@ -5,6 +5,7 @@ import { Fragment, useRef, useState } from "react";
 
 import { useForm, SubmitHandler } from "react-hook-form";
 import CloseIcon from "@/icons/CloseIcon";
+import {GrFormClose} from "react-icons/gr"
 import Button from "@/components/shared/Button";
 import CameraPlusIcon from "@/icons/CameraPlusIcon";
 import Avatar from "@/components/Avatar";
@@ -186,7 +187,7 @@ export default function EditProfileModal({
                     <input
                       {...register("name", {
                         required: false,
-                        value: user?.name!,
+                        value: user?.username!,
                       })}
                       type="text"
                       className="block w-full rounded border border-solid border-gray-300 bg-transparent p-3 text-lg font-normal text-black focus:border-blue-500   
@@ -237,14 +238,14 @@ export default function EditProfileModal({
 
 function Buttons({ close }: { close: () => void }) {
   return (
-    <div className="flex w-full items-center">
+    <div className="flex w-full items-center ">
       <div className="cursor-pointer" onClick={close}>
-        <CloseIcon />
+        <GrFormClose size={20} />
       </div>
-      <p className="ml-8 text-lg font-semibold"> Edit profile</p>
+      <p className="ml-8 text-lg font-semibold text-black"> Edit profile</p>
       <Button
         // type="submit"
-        className="ml-auto w-20 bg-[#d7dbdc] hover:opacity-90 dark:text-white "
+        className="ml-auto w-20 hover:opacity-90 dark:text-white bg-blue-600 rounded-xl"
         // text=""
       >
         Save

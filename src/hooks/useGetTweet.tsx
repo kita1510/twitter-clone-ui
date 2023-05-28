@@ -5,15 +5,15 @@ import { TweetProps } from "@/types";
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
 
-const useTweets = () => {
-  const { data: tweets, status } = useQuery<any, any, TweetProps[]>({
+const useGetTweet = (tweetId: string) => {
+  const { data: tweet, status } = useQuery<any, any, TweetProps>({
     queryKey: ["tweet"],
     queryFn: async () => {
-      const { data } = await client.get("/tweet/");
+      const { data } = await client.get("/tweet/" + tweetId);
       return data;
     },
   });
-  return { tweets, status };
+  return { tweet, status };
 };
 
-export default useTweets;
+export default useGetTweet;

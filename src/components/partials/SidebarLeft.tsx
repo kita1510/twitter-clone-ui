@@ -15,12 +15,17 @@ import supabase from "@/libs/supabase";
 import { replaceSpacing } from "@/utils/replaceText";
 import client from "@/libs/axios";
 import TweetModal from "@/components/modals/TweetModal";
+import useRandomTweets from "@/hooks/useRandomTweets";
 
 export default function SidebarLeft({ active }: { active?: number }) {
   const [isOpen, setIsOpen] = useState(false);
   const [isOpen2, setIsOpen2] = useState(false);
   const user = useUser();
   const session = useSession();
+
+  const {tweets} = useRandomTweets()
+
+  console.log(tweets)
 
   function toggleModal() {
     setIsOpen(!isOpen);

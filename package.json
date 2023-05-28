@@ -28,6 +28,7 @@
     "framer-motion": "^10.12.12",
     "image-conversion": "^2.1.1",
     "moment": "^2.29.4",
+    "moment-timezone": "^0.5.43",
     "next": "13.4.3",
     "next-auth": "^4.22.1",
     "next-themes": "^0.2.1",

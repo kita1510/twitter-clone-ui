@@ -9,12 +9,12 @@ import { toast } from "react-toastify";
 import { useUser } from "@/contexts/AuthContext";
 import moment from "moment-timezone";
 
-const useCreateTweet = () => {
+const useReplyTweet = () => {
   const queryClient = useQueryClient();
   const user = useUser();
 
-  const { mutate: createTweet } = useMutation({
-    mutationFn: creTweet,
+  const { mutate: replyTweet } = useMutation({
+    mutationFn: reply,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["tweet"] });
     },
@@ -23,19 +23,21 @@ const useCreateTweet = () => {
     },
   });
 
-  async function creTweet(tweet: Tweet, userId: string) {
-    const state = await supabase.from("Tweet").insert({
+  async function reply(tweet: Tweet) {
+    const state = await supabase.from("Reply").insert({
       id: uuidv4(),
       userId: user?.id,
+      tweetId: tweet?.id,
       body: tweet?.body,
       createdAt: moment.tz(Date.now(), "Asia/Bangkok").format(),
     });
-    if (state) {
-      toast("Đăng bài thành công", { autoClose: 3000 });
+    if (state?.status === 201) {
+      // const state = await supabase.rpc("like_a_tweet", { tweetId: tweet?.id });
+      toast("Đã thích bài viết", { autoClose: 3000 });
     }
   }
 
-  return { createTweet };
+  return { replyTweet };
 };
 
-export default useCreateTweet;
+export default useReplyTweet;

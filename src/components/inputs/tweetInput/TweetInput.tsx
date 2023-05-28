@@ -41,8 +41,8 @@ export function TweetInput({ onPost }: { onPost?: any }) {
   //   let newTweet = trpc.tweet.newTweet.useMutation();
 
   const [selectedFile, setSelectedFile] = useState<string | null>();
-  console.log(selectedFile);
-  console.log();
+  // console.log(selectedFile);
+  // console.log();
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     setIsPosting(true);
     // await supabase.from("Tweet").insert({id: uuidv4(), userId: session?.id, body: body });
@@ -51,7 +51,7 @@ export function TweetInput({ onPost }: { onPost?: any }) {
     reset();
     clearInputs();
   };
-  console.log(tweet);
+  // console.log(tweet);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
 

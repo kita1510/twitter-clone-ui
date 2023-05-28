@@ -10,7 +10,7 @@ export function PageHead({
   backBtn,
   profile,
 }: {
-  name: string;
+  name?: string;
   username?: string;
   backBtn?: boolean;
   profile?: boolean;

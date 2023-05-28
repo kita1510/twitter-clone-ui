@@ -5,6 +5,8 @@ import ReactTextareaAutosize from "react-textarea-autosize";
 import { useForm, SubmitHandler } from "react-hook-form";
 // import { trpc } from "@utils/trpc";
 import Avatar from "@/components/Avatar";
+import { useUser } from "@/contexts/AuthContext";
+import useReplyTweet from "@/hooks/useReplyTweet";
 // import { getUserSession } from "@hooks/getUserSession";
 
 type Inputs = {
@@ -16,7 +18,11 @@ type InputProps = {
   minH?: number;
 };
 let avatarSize = 56;
-export function ReplyInput({ onReply, hideAvatar, minH = 80 }: InputProps) {
+export default function ReplyInput({
+  onReply,
+  hideAvatar,
+  minH = 80,
+}: InputProps) {
   const {
     register,
     handleSubmit,
@@ -24,11 +30,17 @@ export function ReplyInput({ onReply, hideAvatar, minH = 80 }: InputProps) {
     reset,
     formState: { errors },
   } = useForm<Inputs>();
+
+  const { replyTweet } = useReplyTweet();
+
   const onSubmit: SubmitHandler<Inputs> = (data) => {
+    replyTweet();
     onReply(data.body);
     reset();
   };
-//   let session = getUserSession();
+
+  const user = useUser();
+  //   let session = getUserSession();
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col ">
       <div className="flex gap-2 ">
@@ -37,7 +49,10 @@ export function ReplyInput({ onReply, hideAvatar, minH = 80 }: InputProps) {
         ) : (
           <div className="min-w-fit">
             {" "}
-            <Avatar avatarImage={"https://i.pinimg.com/564x/03/a6/3a/03a63ad25d9614ef13568a3b19eb6774.jpg"} size={avatarSize} />
+            <Avatar
+              avatarImage={user?.user_metadata?.avatar_url}
+              size={avatarSize}
+            />
           </div>
         )}
         <div style={{ minHeight: minH }} className="  mt-2 w-full ">

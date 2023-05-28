@@ -4,12 +4,13 @@ import { SidebarItemProps } from "@/components/shared/SidebarItem";
 import { AiTwotoneHome } from "react-icons/ai";
 import { MdOutlineExplore } from "react-icons/md";
 import { IoNotificationsOutline } from "react-icons/io5";
+import { BsBookmark, BsBookmarkFill } from "react-icons/bs";
 
 export let navItems: SidebarItemProps[] = [
   {
     href: "/",
     text: "Home",
-    Icon: <AiTwotoneHome size={26}/>,
+    Icon: <AiTwotoneHome size={26} />,
   },
   {
     href: "/explore",
@@ -29,12 +30,12 @@ export let navItems: SidebarItemProps[] = [
   //   diabled: true,
   //   icon: "",
   // },
-  // {
-  //   href: "/bookmarks",
-  //   text: "Bookmarks",
-  //   diabled: true,
-  //   icon: "",
-  // },
+  {
+    href: "/bookmarks",
+    text: "Bookmarks",
+    disabled: false,
+    Icon: <BsBookmark size={26} />,
+  },
   // {
   //   href: "/settings",
   //   text: "Settings",

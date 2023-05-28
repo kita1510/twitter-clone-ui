@@ -10,7 +10,7 @@ import React, { useMemo } from "react";
 import { FaDiscord, FaFacebookF } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { SiSpotify } from "react-icons/si";
-import { BsGithub } from "react-icons/bs";
+import { BsDiscord, BsGithub } from "react-icons/bs";
 
 const LoginPage: NextPage = () => {
   const handleSignIn = (provider: Provider) => () => {
@@ -49,11 +49,11 @@ const LoginPage: NextPage = () => {
             <span>Đăng nhập với GitHub</span>
           </Button>
           <Button
-            className="bg-red-700 w-[17rem] rounded-sm text-white flex justify-center items-center gap-4 hover:bg-red-900"
-            onClick={handleSignIn("google")}
+            className="bg-purple-700 w-[17rem] rounded-sm text-white flex justify-center items-center gap-4 hover:bg-purple-900"
+            onClick={handleSignIn("discord")}
           >
-            <FcGoogle className="text-2xl"></FcGoogle>
-            <span>Đăng nhập với Google </span>
+            <BsDiscord className="text-2xl"/>
+            <span>Đăng nhập với Discord </span>
           </Button>
         </div>
       </div>

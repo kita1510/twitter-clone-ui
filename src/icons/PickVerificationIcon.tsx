@@ -2,8 +2,7 @@
 
 import React from "react";
 export type ColorType = { color?: "red" | "blue" | "gold" | "gray" | string };
-import BlueVerified from //   GoldVerified,
-//   GrayVerified,
+import BlueVerified from //   GrayVerified, //   GoldVerified,
 //   RedVerified,
 "./verified/Blue";
 

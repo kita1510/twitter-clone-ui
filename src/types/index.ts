@@ -3,9 +3,9 @@
 import type { Tweet, User, Like, Retweet, Reply } from "@prisma/client";
 export type UserData = {};
 
-export type TweetProps = Tweet[] & {
-  user: User;
-  likes: Like[];
+export type TweetProps = Tweet & {
+  User: User;
+  Like: Like[];
   retweets: Retweet[];
-  replies: Reply[];
+  Reply: Reply[];
 };

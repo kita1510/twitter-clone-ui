@@ -6,7 +6,7 @@ import {
   PickVerificationIcon,
 } from "@/icons/PickVerificationIcon";
 
-export function TweetMetadata({
+export default function TweetMetadata({
   color,
   ...props
 }: { user: UserData } & ColorType & TweetProps) {
