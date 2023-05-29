@@ -17,6 +17,7 @@ const useReplyTweet = () => {
     mutationFn: reply,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["tweet"] });
+      queryClient.invalidateQueries({ queryKey: ["twee"] });
     },
     onError: (error: any) => {
       toast.error(error.message);
@@ -32,8 +33,8 @@ const useReplyTweet = () => {
       createdAt: moment.tz(Date.now(), "Asia/Bangkok").format(),
     });
     if (state?.status === 201) {
-      // const state = await supabase.rpc("like_a_tweet", { tweetId: tweet?.id });
-      toast("Đã thích bài viết", { autoClose: 3000 });
+      const state = await supabase.rpc("reply_a_tweet", { tweetId: tweet?.id });
+      toast("Đã trả lời bài viết", { autoClose: 3000 });
     }
   }
 

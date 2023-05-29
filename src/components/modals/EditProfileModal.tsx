@@ -1,19 +1,21 @@
 /** @format */
 
 import { Dialog, Transition } from "@headlessui/react";
-import { Fragment, useRef, useState } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
 
 import { useForm, SubmitHandler } from "react-hook-form";
 import CloseIcon from "@/icons/CloseIcon";
-import {GrFormClose} from "react-icons/gr"
+import { GrFormClose } from "react-icons/gr";
 import Button from "@/components/shared/Button";
 import CameraPlusIcon from "@/icons/CameraPlusIcon";
 import Avatar from "@/components/Avatar";
 import ReactTextareaAutosize from "react-textarea-autosize";
-// import { trpc } from "@utils/trpc";
-// import { getUserSession } from "@hooks/getUserSession";
 // import { User } from "@prisma/client";
 import { compressFile } from "@/utils/comporessImage";
+import client from "@/libs/axios";
+import { User } from "@prisma/client";
+import { useUser } from "@/contexts/AuthContext";
+import useUpdateProfile from "@/hooks/useUpdateProfile";
 // import updateSession from "@utils/updateSession";
 
 type Inputs = {
@@ -40,12 +42,35 @@ export default function EditProfileModal({
     reset,
     formState: { errors },
   } = useForm<Inputs>();
-  //   let session = getUserSession();
+
+  const [userInfo, setUserInfo] = useState<User | undefined>();
+
+  const session = useUser();
+  async function getUserInfo() {
+    if (session) {
+      const data = await client.get(`/user/${session?.id}`);
+      setUserInfo(data?.data);
+    }
+  }
+
+  const [profile, setProfile] = useState({
+    bio: "",
+    website: "",
+  });
+
+  useEffect(() => {
+    getUserInfo();
+  }, []);
+
+  console.log(userInfo);
+
   const [profileImg, setProfileImg] = useState<string | null>();
   const [bgImg, setBgImg] = useState<string | null>();
 
   const bgRef = useRef<HTMLInputElement>(null);
   const profileRef = useRef<HTMLInputElement>(null);
+
+  const { updateProfile } = useUpdateProfile();
 
   function handleBgClick() {
     if (bgRef.current) {
@@ -94,15 +119,8 @@ export default function EditProfileModal({
     }
   }
 
-  //   let updateProfile = trpc.user.updateUser.useMutation();
-  //   let updateProfileImg = trpc.user.updateImg.useMutation();
-  //   const onSubmit: SubmitHandler<Inputs> = async (data) => {
-  //     let res = await updateProfile.mutateAsync({ ...data });
-  //     let resImg = await updateProfileImg.mutateAsync({ bgImg, profileImg });
-  //     onSave(res.user);
-  //     await updateSession();
-  //     closeModal();
-  //   };
+  console.log(profile);
+
   return (
     <>
       <Transition appear show={isOpen} as={Fragment}>
@@ -132,7 +150,12 @@ export default function EditProfileModal({
               >
                 <Dialog.Panel className="z-50 flex w-full max-w-[600px] transform flex-col  justify-center gap-9 overflow-hidden rounded-2xl bg-white p-6 text-left align-middle text-white shadow-xl transition-all dark:bg-black dark:text-white">
                   <form
-                    // onSubmit={handleSubmit(onSubmit)}
+                    onSubmit={(e) => {
+                      e.preventDefault();
+                      // updateProfile(userInfo)
+                      updateProfile(profile);
+                      // handleSubmit(onSubmit)}
+                    }}
                     className="flex flex-col gap-8"
                   >
                     <Buttons close={closeModal} />
@@ -185,30 +208,28 @@ export default function EditProfileModal({
                     </div>
 
                     <input
-                      {...register("name", {
-                        required: false,
-                        value: user?.username!,
-                      })}
-                      type="text"
-                      className="block w-full rounded border border-solid border-gray-300 bg-transparent p-3 text-lg font-normal text-black focus:border-blue-500   
-                                    focus:outline-none dark:border-gray-700 dark:text-white dark:focus:border-blue-500"
-                      placeholder="Name"
-                    />
-                    {/* <input
+                      value={userInfo?.username!}
                       {...register("username", {
                         required: true,
-                        value: user?.username!,
+                        value: userInfo?.username!,
                       })}
                       type="text"
                       className="block w-full rounded border border-solid border-gray-300 bg-transparent p-3 text-lg font-normal text-black focus:border-blue-500   
                                     focus:outline-none dark:border-gray-700 dark:text-white dark:focus:border-blue-500"
                       placeholder="Username"
-                    /> */}
+                    />
                     <ReactTextareaAutosize
+                      value={profile?.bio}
                       {...register("bio", {
                         required: false,
                         value: user?.bio!,
                       })}
+                      // onChange={(e) =>
+                      //   setProfile({
+                      //     bio: e?.target?.value,
+                      //     ...props,
+                      //   })
+                      // }
                       maxRows={9}
                       minRows={2}
                       placeholder="Bio"
@@ -216,10 +237,14 @@ export default function EditProfileModal({
                                     focus:outline-none dark:border-gray-700 dark:text-white dark:focus:border-blue-500"
                     />
                     <input
+                      value={profile?.website}
                       {...register("website", {
                         required: false,
                         value: user?.website!,
                       })}
+                      // onChange={(e) =>
+                      //   setProfile({ website: e?.target?.value, ...bio })
+                      // }
                       type="text"
                       className="block w-full rounded border border-solid border-gray-300 bg-transparent p-3 text-lg font-normal text-black focus:border-blue-500   
                                     focus:outline-none dark:border-gray-700 dark:text-white dark:focus:border-blue-500"

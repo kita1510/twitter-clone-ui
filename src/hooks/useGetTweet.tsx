@@ -7,7 +7,7 @@ import React from "react";
 
 const useGetTweet = (tweetId: string) => {
   const { data: tweet, status } = useQuery<any, any, TweetProps>({
-    queryKey: ["tweet"],
+    queryKey: ["twee"],
     queryFn: async () => {
       const { data } = await client.get("/tweet/" + tweetId);
       return data;

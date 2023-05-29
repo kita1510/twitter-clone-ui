@@ -22,10 +22,8 @@ type Inputs = {
 export function TweetInput({ onPost }: { onPost?: any }) {
   const [isPosting, setIsPosting] = useState(false);
   const [tweet, setTweet] = useState({ body: "" });
-  const queryClient = new QueryClient();
 
   //   let session = getUserSession();
-  const [user, setUser] = useState({});
   const session = useUser();
 
   const { createTweet } = useCreateTweet();
@@ -47,7 +45,7 @@ export function TweetInput({ onPost }: { onPost?: any }) {
     setIsPosting(true);
     // await supabase.from("Tweet").insert({id: uuidv4(), userId: session?.id, body: body });
     // queryClient.invalidateQueries({queryKey:['tweet']})
-    createTweet(tweet, session?.id);
+    createTweet(tweet);
     reset();
     clearInputs();
   };
@@ -98,7 +96,7 @@ export function TweetInput({ onPost }: { onPost?: any }) {
   //       setIsPosting(false);
   //     }
   //   }, [isPosting, newTweet, onPost]);
-  if (!user) return <></>;
+  // if (!user) return <></>;
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}

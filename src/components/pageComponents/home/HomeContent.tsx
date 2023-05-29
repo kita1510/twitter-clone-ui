@@ -37,17 +37,8 @@ export default function HomeContent() {
       username: replaceSpacing(session?.user_metadata?.name),
       email: session?.user_metadata?.email,
       provider: session?.app_metadata?.provider,
+      profileImage: session?.user_metadata?.avatar_url,
     });
-    await supabase
-      .from("User")
-      .upsert({
-        id: session?.id,
-        username: replaceSpacing(session?.user_metadata?.name),
-        email: session?.user_metadata?.email,
-        profileImage: session?.user_metadata?.avatar_url,
-        provider: session?.app_metadata?.provider,
-      })
-      .eq("id", session?.id);
   }
 
   useEffect(() => {
@@ -56,7 +47,7 @@ export default function HomeContent() {
 
   useEffect(() => {
     addUser();
-  }, [session]);
+  }, []);
 
   console.log(user);
   const { ref, inView, entry } = useInView({

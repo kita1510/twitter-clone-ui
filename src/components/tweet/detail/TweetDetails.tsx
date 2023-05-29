@@ -13,6 +13,9 @@ import TweetActions from "../TweetAction";
 import Avatar from "@/components/Avatar";
 import Button from "@/components/shared/Button";
 import { TweetProps } from "@/types";
+import { TweetDetailsReply } from "./TweetDetailReply";
+import { useUser } from "@/contexts/AuthContext";
+import useReplyTweet from "@/hooks/useReplyTweet";
 
 type Inputs = {
   body: string;
@@ -32,10 +35,13 @@ export default function TweetDetails({
 }) {
   const { register, handleSubmit, watch, reset } = useForm<Inputs>();
 
-  console.log(tweet)
+  console.log(tweet);
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     reset();
   };
+  const { replyTweet } = useReplyTweet();
+
+  const user = useUser();
   return (
     <div className="fade-in flex flex-col px-4   transition-all  ease-in-out">
       <TweetDetailsMetaData tweet={tweet} reply={reply!} />
@@ -51,7 +57,9 @@ export default function TweetDetails({
 
         <div className="main-border flex items-center gap-6 border-b pb-5 ">
           <div className="">
-            <Avatar avatarImage={tweet?.User?.profileImage} />
+            <Avatar
+              avatarImage={user?.user_metadata?.avatar_url || undefined}
+            />
           </div>
           <form
             onSubmit={handleSubmit(onSubmit)}
@@ -63,16 +71,23 @@ export default function TweetDetails({
               {...register("body", { required: true })}
               placeholder="Tweet your reply"
               className="flex h-20 w-full resize-none items-center justify-center  bg-transparent
-                            text-lg text-white placeholder-gray-400  focus:outline-none "
+                            text-lg text-black placeholder-gray-400  focus:outline-none "
             />
 
-            <Button>Reply</Button>
+            <Button
+              className="w-28 h-10 text-white rounded-3xl bg-blue-500"
+              onClick={() => replyTweet(tweet)}
+            >
+              Reply
+            </Button>
           </form>
         </div>
         <div className="flex flex-col ">
-          {/* {tweetReplies.map((t) => (
-            <TweetDetailsReply tweet={t} />
-          ))} */}
+          {tweet?.Reply?.map((t) => (
+            <React.Fragment key={t?.id}>
+              <TweetDetailsReply {...tweet} tweet={t} />
+            </React.Fragment>
+          ))}
         </div>
       </div>
     </div>

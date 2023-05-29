@@ -24,7 +24,8 @@ const useDeleteTweet = () => {
 
   async function delTweet(id: string) {
     const status = await supabase.from("Like").delete().eq("tweetId", id);
-    if (status?.status === 204) {
+    const s = await supabase.from("Reply").delete().eq("tweetId", id);
+    if (status?.status === 204 || s?.status === 204) {
       const state = await supabase.from("Tweet").delete().eq("id", id);
       console.log(state);
       if (state?.status === 204) {

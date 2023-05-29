@@ -6,7 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 import React from "react";
 
 const useTweets = () => {
-  const { data: tweets, status } = useQuery<any, any, TweetProps[]>({
+  const { data: tweets = [], status } = useQuery<any, any, TweetProps[]>({
     queryKey: ["tweet"],
     queryFn: async () => {
       const { data } = await client.get("/tweet/");

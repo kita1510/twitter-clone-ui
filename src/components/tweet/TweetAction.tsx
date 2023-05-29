@@ -50,7 +50,7 @@ export default function TweetActions(props: TweetProps) {
 
   // console.log(interactionState?.liked);
   return (
-    <div className="flex items-center">
+    <div className="flex items-center py-4">
       <ReplyModal tweet={props} isOpen={isOpen} closeModal={closeModal} />
       <div
         onClick={reply}

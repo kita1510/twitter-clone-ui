@@ -91,7 +91,6 @@ export default function SidebarLeft({ active }: { active?: number }) {
 }
 
 function User() {
-  // let session = getUserSession();
   const user = useUser();
   async function logout() {
     await supabase.auth.signOut();

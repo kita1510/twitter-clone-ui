@@ -10,11 +10,11 @@ export function TweetMetrics({tweet}:{tweet:TweetProps}) {
             </div>
             <div className="text-secondary flex gap-4 py-3">
                 <div className="flex ">
-                    <span className="font-semibold text-white">{tweet?.retweetCount}</span>
+                    <span className="font-semibold text-black">{tweet?.retweetCount}</span>
                     <span className="text-secondary ml-1">Retweets</span>
                 </div>
                 <div className="flex ">
-                    <span className="text-white font-semibold">
+                    <span className="text-black font-semibold">
                         {tweet?.likeCount}
                     </span>
                     <span className="text-secondary ml-1">Likes</span>

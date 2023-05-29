@@ -20,7 +20,7 @@ export default function TweetBody({ body }: { body: string }) {
   };
 
   return (
-    <p className="text-tweet whitespace-pre-line break-words">
+    <p className="text-tweet whitespace-pre-line break-words py-4">
       {formatText(body)}
     </p>
   );

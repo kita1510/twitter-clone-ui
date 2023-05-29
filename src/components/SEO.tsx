@@ -2,7 +2,7 @@
 import Head from 'next/head';
 
 type MainLayoutProps = {
-  title: string;
+  title?: string;
   description?: string;
 };
 

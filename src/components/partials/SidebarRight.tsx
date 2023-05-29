@@ -10,17 +10,6 @@ export default function SidebarRight() {
       <div className="fixed flex h-screen w-[290px] flex-col overflow-y-auto lg:w-[350px]">
         <SearchBar />
         <WhoToFollow />
-        <div className="flex items-center ml-3">
-          {/* <GithubIcon className="h-6 w-6 fill-white mr-1 " /> Made by{" "} */}
-          <a
-            href="https://github.com/AlandSleman/t3-twitter-clone"
-            className="ml-1 text-blue-500"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            AlandSleman
-          </a>
-        </div>
       </div>
     </div>
   );
@@ -28,7 +17,7 @@ export default function SidebarRight() {
 function SearchBar() {
   return (
     <div className="relative m-2">
-      <div className="absolute flex h-full cursor-pointer items-center pl-4">
+      <div className="absolute flex h-full cursor-pointer items-center pl-4 text-black">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           className="icon icon-tabler icon-tabler-mail"
@@ -36,7 +25,7 @@ function SearchBar() {
           height={18}
           viewBox="0 0 24 24"
           strokeWidth="1.5"
-          stroke="currentColor"
+          stroke="currentColor" 
           fill="none"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -46,7 +35,7 @@ function SearchBar() {
       </div>
       <input
         // disabled
-        className=" flex  h-9 w-full  items-center rounded-full  p-6 pl-12 text-sm font-normal text-gray-100 "
+        className=" flex  h-9 w-full  items-center rounded-full  p-6 pl-12 text-sm font-normal text-black "
         placeholder="Search Twitter"
       />
     </div>
@@ -140,7 +129,7 @@ const WhoToFollow = () => {
   // }, [getTopUsers.data]);
   return (
     <div className={`sidebar-bg m-2 rounded-2xl`}>
-      <h1 className="p-3  text-lg font-bold text-gray-900 dark:text-white">
+      <h1 className="p-3  text-lg font-bold text-white">
         Who to follow
       </h1>
       {/* {topUsers?.map((u: any, i: any) => (

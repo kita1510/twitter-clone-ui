@@ -20,12 +20,12 @@ const LoginPage: NextPage = () => {
   return (
     <React.Fragment>
       <SEO title="Login" />
-      <div className="w-full h-[768px] font-semibold flex rounded-full relative">
-        <div className="w-[40%] h-full">
+      <div className="w-full h-[700px] font-semibold flex rounded-full relative">
+        <div className="w-3/5 h-full">
           <img
             className="w-full h-full object-cover"
             src={
-              "https://rare-gallery.com/uploads/posts/501656-original-4k.jpg"
+              "https://free4kwallpapers.com/uploads/originals/2022/03/28/anime-landscape-for-desktop-scenery-clouds-stars-buildings-wallpaper.jpg"
             }
             alt=""
           />

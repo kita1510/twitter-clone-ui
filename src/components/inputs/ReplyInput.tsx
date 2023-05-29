@@ -1,14 +1,15 @@
 /** @format */
 
-import React from "react";
+import React, { useState } from "react";
 import ReactTextareaAutosize from "react-textarea-autosize";
 import { useForm, SubmitHandler } from "react-hook-form";
 // import { trpc } from "@utils/trpc";
 import Avatar from "@/components/Avatar";
 import { useUser } from "@/contexts/AuthContext";
 import useReplyTweet from "@/hooks/useReplyTweet";
+import { toast } from "react-toastify";
 // import { getUserSession } from "@hooks/getUserSession";
-
+ 
 type Inputs = {
   body: string;
 };
@@ -18,11 +19,10 @@ type InputProps = {
   minH?: number;
 };
 let avatarSize = 56;
-export default function ReplyInput({
-  onReply,
-  hideAvatar,
-  minH = 80,
-}: InputProps) {
+export default function ReplyInput(
+  tweet: any,
+  { onReply, hideAvatar, minH = 80 }: InputProps
+) {
   const {
     register,
     handleSubmit,
@@ -32,10 +32,17 @@ export default function ReplyInput({
   } = useForm<Inputs>();
 
   const { replyTweet } = useReplyTweet();
+  const [tweetReply, setTweetReply] = useState({ id: "", body: "" });
+  console.log(tweetReply.body);
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
-    replyTweet();
-    onReply(data.body);
+    if (tweetReply.body) {
+      replyTweet(tweetReply);
+      // tweetReply.body = "";
+    } else if (tweetReply.body === "") {
+      toast("Thông tin bị rỗng 🐱 ");
+    }
+    // onReply(data.body);
     reset();
   };
 
@@ -56,9 +63,13 @@ export default function ReplyInput({
           </div>
         )}
         <div style={{ minHeight: minH }} className="  mt-2 w-full ">
-          <ReactTextareaAutosize
-            {...register("body", { required: true })}
-            maxRows={9}
+          <input
+            value={tweetReply?.body}
+            onChange={(e) =>
+              setTweetReply({ id: tweet?.id, body: e?.target?.value })
+            }
+            // {...register("body", { required: true })}
+            // maxRows={9}
             placeholder="Tweet your reply"
             className=" w-full resize-none border-0 bg-transparent text-gray-900 placeholder-gray-400  focus:outline-none dark:text-white"
           />

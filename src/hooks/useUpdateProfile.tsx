@@ -1,7 +1,7 @@
 /** @format */
 
 import React from "react";
-import { Tweet } from "@prisma/client";
+import { User } from "@prisma/client";
 import supabase from "@/libs/supabase";
 import { v4 as uuidv4 } from "uuid";
 import { useQueryClient, useMutation } from "@tanstack/react-query";
@@ -9,12 +9,12 @@ import { toast } from "react-toastify";
 import { useUser } from "@/contexts/AuthContext";
 import moment from "moment-timezone";
 
-const useCreateTweet = () => {
+const useUpdateProfile = () => {
   const queryClient = useQueryClient();
-  const user = useUser();
+//   const user = useUser();
 
-  const { mutate: createTweet } = useMutation({
-    mutationFn: creTweet,
+  const { mutate: updateProfile } = useMutation({
+    mutationFn: update,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["tweet"] });
     },
@@ -23,19 +23,19 @@ const useCreateTweet = () => {
     },
   });
 
-  async function creTweet(tweet: Tweet) {
-    const state = await supabase.from("Tweet").insert({
+  async function update(user?: User) {
+    const state = await supabase.from("User").update({
       id: uuidv4(),
-      userId: user?.id,
-      body: tweet?.body,
-      createdAt: moment.tz(Date.now(), "Asia/Bangkok").format(),
+      username: user?.username,
+      bio: user?.bio,
+      email: user?.email,
     });
     if (state) {
-      toast("Đăng bài thành công", { autoClose: 3000 });
+      toast("Cập nhật profile thành công");
     }
   }
 
-  return { createTweet };
+  return { updateProfile };
 };
 
-export default useCreateTweet;
+export default useUpdateProfile;

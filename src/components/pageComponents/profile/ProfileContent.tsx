@@ -37,10 +37,12 @@ const ProfileContent: NextPage = () => {
 
   async function getTweetsInfo() {
     if (user) {
-      const data = await client.get(`/tweet/${user?.id}`);
+      const data = await client.get(`/tweetuser/${user?.id}`);
       setTweets(data?.data);
     }
   }
+
+  console.log(user?.id)
 
   useEffect(() => {
     if (user) {
@@ -60,7 +62,7 @@ const ProfileContent: NextPage = () => {
   }
 
   // console.log(user?.id);
-  // console.log(tweets);
+  console.log(tweets);
 
   return (
     <>
@@ -79,7 +81,7 @@ const ProfileContent: NextPage = () => {
             <div className="p-4">
               <div className="relative flex w-full items-center justify-between">
                 <div style={{ marginTop: "-5rem" }}>
-                  <Avatar avatarImage={userInfo?.profileImage} size={130} />
+                  <Avatar avatarImage={userInfo?.profileImage!} size={130} />
                 </div>
                 {user?.id === userInfo?.id ? (
                   <EditProfileBtn onClick={toggleModal} />

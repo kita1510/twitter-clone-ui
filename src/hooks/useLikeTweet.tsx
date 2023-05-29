@@ -17,6 +17,7 @@ const useLikeTweet = () => {
     mutationFn: like,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["tweet"] });
+      queryClient.invalidateQueries({ queryKey: ["twee"] });
     },
     onError: (error: any) => {
       toast.error(error.message);
@@ -40,6 +41,7 @@ const useLikeTweet = () => {
     mutationFn: unlike,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["tweet"] });
+      queryClient.invalidateQueries({ queryKey: ["twee"] });
     },
     onError: (error: any) => {
       toast.error(error.message);
