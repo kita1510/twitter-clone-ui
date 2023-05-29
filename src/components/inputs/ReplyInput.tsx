@@ -79,7 +79,7 @@ export default function ReplyInput(
         <div
           style={{ marginLeft: avatarSize + 8 }}
           className="flex w-full  items-center space-x-2  text-white"
-        >
+        > 
           <a
             href="#"
             className="dark:hover:bg-dim-800 rounded-full text-blue-400 hover:bg-blue-50"
