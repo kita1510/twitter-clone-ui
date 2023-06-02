@@ -3,17 +3,26 @@
 import NextLink from "@/components/NextLink";
 import useDeleteTweet from "@/hooks/useDeleteTweet";
 import { Menu, Transition } from "@headlessui/react";
-import { Fragment } from "react";
+import { Fragment, useEffect } from "react";
 import classNames from "classnames";
 import { useUser } from "@/contexts/AuthContext";
 import { TweetProps } from "@/types";
+import useBookmark from "@/hooks/useBookmark";
+import { useQueryClient } from "@tanstack/react-query";
 
-let bookmarked = false;
-export default function TweetOptions(tweet:TweetProps) {
+// let bookmarked = false;
+export default function TweetOptions(tweet: TweetProps) {
   const { deleteTweet } = useDeleteTweet();
+  const { addBookmark, deleteTweetInBookMark } = useBookmark();
+  const queryClient = useQueryClient();
   const user = useUser();
-  function bookmarkTweet() {
-  }
+  const bookmarked = tweet?.Bookmark?.some((l) => l?.userId === user?.id);
+  // console.log(bookmarked);
+  // console.log(tweet);
+  useEffect(() => {
+    queryClient.invalidateQueries({ queryKey: ["tweet"] });
+  }, [tweet]);
+
   return (
     <NextLink href="" className="h-fit">
       <div className="top-16 z-50 text-right">
@@ -51,12 +60,16 @@ export default function TweetOptions(tweet:TweetProps) {
                 <Menu.Item>
                   {({ active }) => (
                     <button
-                      onClick={bookmarkTweet}
+                      onClick={() => {
+                        !bookmarked
+                          ? addBookmark(tweet)
+                          : deleteTweetInBookMark(tweet);
+                      }}
                       className={`  ${
                         active ? " bg-secondary-hover" : ""
                       } group flex w-full items-center rounded-md px-2 py-2 text-sm text-white`}
                     >
-                      {bookmarked ? (
+                      {!bookmarked ? (
                         <BookmarkIcon
                           className="mr-2 h-5 w-5"
                           aria-hidden="true"
@@ -67,7 +80,7 @@ export default function TweetOptions(tweet:TweetProps) {
                           aria-hidden="true"
                         />
                       )}
-                      Bookmark
+                      Lưu bài viết
                     </button>
                   )}
                 </Menu.Item>
@@ -85,7 +98,7 @@ export default function TweetOptions(tweet:TweetProps) {
                           className="mr-2 h-5 w-5 text-violet-400"
                           aria-hidden="true"
                         />
-                        Delete
+                        Xóa
                       </button>
                     )}
                   </Menu.Item>

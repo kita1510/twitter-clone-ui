@@ -15,7 +15,7 @@ export default function TweetMetadata({
   return (
     <>
       <div className="flex">
-        <h1 className="flex items-center text-base font-medium leading-6 text-gray-800 dark:text-white">
+        <h1 className="flex gap-1 items-center text-base font-[650] leading-6 text-gray-800 dark:text-white">
           {props?.User?.username}
           <PickVerificationIcon color={color} />
           <span className="ml-1 text-sm font-medium leading-5 text-gray-400 transition duration-150 ease-in-out group-hover:text-gray-300">

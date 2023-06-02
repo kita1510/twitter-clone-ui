@@ -62,7 +62,7 @@ export default function EditProfileModal({
     getUserInfo();
   }, []);
 
-  console.log(userInfo);
+  // console.log(userInfo);
 
   const [profileImg, setProfileImg] = useState<string | null>();
   const [bgImg, setBgImg] = useState<string | null>();
@@ -119,7 +119,7 @@ export default function EditProfileModal({
     }
   }
 
-  console.log(profile);
+  // console.log(profile);
 
   return (
     <>

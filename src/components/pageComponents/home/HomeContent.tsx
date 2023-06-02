@@ -49,7 +49,7 @@ export default function HomeContent() {
     addUser();
   }, []);
 
-  console.log(user);
+  // console.log(user);
   const { ref, inView, entry } = useInView({
     threshold: 0,
   });
@@ -63,10 +63,10 @@ export default function HomeContent() {
         {/* 
          <NewTweets /> */}
         {tweets
-          // ?.sort((a, b) => moment(a?.createdAt.slice(0,10)).isBefore(moment(b?.createdAt.slice(0,10))))
+          ?.sort((a, b) => {return moment(b?.createdAt).unix() -  moment(a?.createdAt).unix()})
           ?.map((t, i) => (
             <React.Fragment key={t?.id}>
-              {/* {console.log( moment(t?.createdAt.slice(0,10)).millisecond())} */}
+              {/* {console.log( moment(t?.createdAt).unix())} */}
               {/* {console.log( t?.createdAt?.slice(0,10))} */}
               <MainTweet key={i} tweet={t} />
             </React.Fragment>

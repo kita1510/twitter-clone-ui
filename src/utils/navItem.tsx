@@ -9,21 +9,21 @@ import { BsBookmark, BsBookmarkFill } from "react-icons/bs";
 export let navItems: SidebarItemProps[] = [
   {
     href: "/",
-    text: "Home",
+    text: "Trang chủ",
     Icon: <AiTwotoneHome size={26} />,
   },
-  {
-    href: "/explore",
-    text: "Explore",
-    disabled: true,
-    Icon: <MdOutlineExplore size={26} />,
-  },
-  {
-    disabled: true,
-    href: "/notifications",
-    text: "Notifications",
-    Icon: <IoNotificationsOutline size={26} />,
-  },
+  // {
+  //   href: "/explore",
+  //   text: "Khám phá",
+  //   disabled: true,
+  //   Icon: <MdOutlineExplore size={26} />,
+  // },
+  // {
+  //   disabled: true,
+  //   href: "/notifications",
+  //   text: "Thông báo",
+  //   Icon: <IoNotificationsOutline size={26} />,
+  // },
   // {
   //   href: "/messages",
   //   text: "Messages",
@@ -32,7 +32,7 @@ export let navItems: SidebarItemProps[] = [
   // },
   {
     href: "/bookmarks",
-    text: "Bookmarks",
+    text: "Đã lưu",
     disabled: false,
     Icon: <BsBookmark size={26} />,
   },

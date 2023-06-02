@@ -13,7 +13,7 @@ export function FilePreview({
     <>
       {selectedFile && (
         <div className="relative flex justify-center">
-          <div className="hover-main bg-main absolute left-1 z-20 flex h-8 w-8 items-center justify-center rounded-full">
+          <div className="hover-main bg-main absolute left-2 top-12 z-20 flex h-8 w-8 items-center justify-center rounded-full">
             <svg
               onClick={clearInputs}
               xmlns="http://www.w3.org/2000/svg"
@@ -31,7 +31,7 @@ export function FilePreview({
             </svg>
           </div>
           <img
-            className="fade-in z-10"
+            className="fade-in z-10 mt-10 rounded-2xl"
             src={selectedFile}
             alt="Selected file preview"
           />

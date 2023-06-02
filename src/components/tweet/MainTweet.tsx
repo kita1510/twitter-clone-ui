@@ -10,7 +10,6 @@ import BodyContent from "./BodyContent";
 import { useUser } from "@/contexts/AuthContext";
 import TweetActions from "./TweetAction";
 import TweetOptions from "./TweetOptions";
-import moment from "moment-timezone";
 import Avatar from "../Avatar";
 
 export const variants: Variants = {
@@ -29,7 +28,7 @@ export default function MainTweet({
 
   // console.log(moment.tz(Date.now(),"Asia/Bangkok").format())
 
-  console.log(tweet);
+  // console.log(tweet);
 
   return (
     // <NextLink disabled={reply} href={`/tweet/`}>

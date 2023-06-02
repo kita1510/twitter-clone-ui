@@ -13,6 +13,8 @@ const Tweet: NextPage = () => {
   //   const params = u
   const { tweetId } = router.query as { tweetId: string };
 
+  console.log(tweetId)
+
   return (
     <>
       <SEO title="Tweet" />

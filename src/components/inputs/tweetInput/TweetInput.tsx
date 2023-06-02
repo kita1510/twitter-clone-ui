@@ -21,12 +21,16 @@ type Inputs = {
 };
 export function TweetInput({ onPost }: { onPost?: any }) {
   const [isPosting, setIsPosting] = useState(false);
-  const [tweet, setTweet] = useState({ body: "" });
+  const [selectedFile, setSelectedFile] = useState<string | null>();
+
+  const [tweet, setTweet] = useState({ body: "", images: selectedFile });
 
   //   let session = getUserSession();
   const session = useUser();
 
   const { createTweet } = useCreateTweet();
+
+  console.log(tweet);
 
   const {
     register,
@@ -38,7 +42,6 @@ export function TweetInput({ onPost }: { onPost?: any }) {
   //   let { data } = useSession();
   //   let newTweet = trpc.tweet.newTweet.useMutation();
 
-  const [selectedFile, setSelectedFile] = useState<string | null>();
   // console.log(selectedFile);
   // console.log();
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
@@ -46,6 +49,7 @@ export function TweetInput({ onPost }: { onPost?: any }) {
     // await supabase.from("Tweet").insert({id: uuidv4(), userId: session?.id, body: body });
     // queryClient.invalidateQueries({queryKey:['tweet']})
     createTweet(tweet);
+    setTweet({body: "", images: ""})
     reset();
     clearInputs();
   };
@@ -74,6 +78,7 @@ export function TweetInput({ onPost }: { onPost?: any }) {
       reader.onload = () => {
         if (typeof reader.result === "string") {
           setSelectedFile(reader.result);
+          setTweet({body: tweet.body, images: reader.result})
         }
       };
     }
@@ -110,7 +115,9 @@ export function TweetInput({ onPost }: { onPost?: any }) {
           <ReactTextareaAutosize
             {...register("body", { required: true })}
             maxRows={9}
-            onChange={(e) => setTweet({ body: e?.target?.value })}
+            value={tweet.body}
+            name="body"
+            onChange={(e) => setTweet({ body: e.target.value , images: selectedFile})}
             placeholder="What's happening?"
             className="h-10 w-full resize-none border-0 bg-transparent text-gray-900 placeholder-gray-400  focus:outline-none dark:text-white"
           />

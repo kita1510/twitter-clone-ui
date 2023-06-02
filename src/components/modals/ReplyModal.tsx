@@ -26,7 +26,7 @@ export default function ReplyModal({
   tweet?: TweetProps;
 }) {
 
-  console.log(tweet)
+  // console.log(tweet)
   return (
     <>
       <Transition appear show={isOpen} as={Fragment}>

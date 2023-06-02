@@ -29,7 +29,7 @@ export function PageHead({
         )}
         <div className="flex flex-col -space-y-1">
           <h1 className="text-primary text-xl font-medium tracking-wide">
-            {name}
+            {username || name}
           </h1>
           {profile && (
             <h2 className="text-secondary ml-0.5 text-sm font-medium tracking-wide">

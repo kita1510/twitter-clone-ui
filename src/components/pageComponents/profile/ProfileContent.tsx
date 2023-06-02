@@ -24,7 +24,7 @@ import { TweetProps } from "@/types";
 const ProfileContent: NextPage = () => {
   const router = useRouter();
   const user = useUser();
-  console.log(user);
+  // console.log(user);
   const [userInfo, setUserInfo] = useState<User | undefined>();
   const [tweets, setTweets] = useState<TweetProps[] | undefined>();
 
@@ -42,7 +42,7 @@ const ProfileContent: NextPage = () => {
     }
   }
 
-  console.log(user?.id)
+  // console.log(user?.id)
 
   useEffect(() => {
     if (user) {
@@ -62,7 +62,7 @@ const ProfileContent: NextPage = () => {
   }
 
   // console.log(user?.id);
-  console.log(tweets);
+  // console.log(tweets);
 
   return (
     <>

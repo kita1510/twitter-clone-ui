@@ -4,10 +4,10 @@ import { Fragment } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { TweetInput } from "../inputs/tweetInput/TweetInput";
 
-type Inputs = {
-    username: string;
-    password: string;
-};
+// type Inputs = {
+//     username: string;
+//     password: string;
+// };
 export default function TweetModal({
     isOpen,
     closeModal,
@@ -15,13 +15,13 @@ export default function TweetModal({
     isOpen: boolean;
     closeModal: any;
 }) {
-    const {
-        register,
-        handleSubmit,
-        watch,
-        reset,
-        formState: { errors },
-    } = useForm<Inputs>();
+    // const {
+    //     register,
+    //     handleSubmit,
+    //     watch,
+    //     reset,
+    //     formState: { errors },
+    // } = useForm<Inputs>();
 
     return (
         <>

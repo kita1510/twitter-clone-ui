@@ -15,7 +15,7 @@ const inter = Inter({ subsets: ["latin"] });
 export default function Home() {
   return (
     <React.Fragment>
-      <SEO title="Home" />
+      <SEO title="Bookmark" />
       <div className={`${inter.className}  mx-auto`}>
         <div className="flex flex-row justify-center">
           <SidebarLeft />

@@ -25,7 +25,7 @@ export default function SidebarLeft({ active }: { active?: number }) {
 
   const {tweets} = useRandomTweets()
 
-  console.log(tweets)
+  // console.log(tweets)
 
   function toggleModal() {
     setIsOpen(!isOpen);
@@ -35,7 +35,7 @@ export default function SidebarLeft({ active }: { active?: number }) {
     setIsOpen2(!isOpen2);
   }
 
-  console.log(user);
+  // console.log(user);
   return (
     <>
       <TweetModal isOpen={isOpen} closeModal={toggleModal} />
@@ -54,11 +54,11 @@ export default function SidebarLeft({ active }: { active?: number }) {
             <SidebarItem
               Icon={<ProfileIcon />}
               href={"/" + replaceSpacing(user?.user_metadata?.name)}
-              text="Profile"
+              text="Trang cá nhân"
               index={6}
               active={active}
             />
-            <div
+            {/* <div
               onClick={toggleModal2}
               className="duration-350 sidebar-hover flex cursor-pointer items-center 
                             justify-center rounded-full p-4  transition ease-in-out xl:justify-start"
@@ -67,7 +67,7 @@ export default function SidebarLeft({ active }: { active?: number }) {
               <span className="text-md ml-4 hidden font-bold xl:block">
                 Get Verified
               </span>
-            </div>
+            </div> */}
             <a
               onClick={toggleModal}
               className="font-sm mx-auto mt-2 mb-10 flex h-11 w-11 cursor-pointer items-center justify-center rounded-full bg-blue-500 py-3 font-bold text-white transition-colors duration-150 dark:hover:bg-blue-400 xl:w-auto"

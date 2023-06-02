@@ -2,12 +2,11 @@
 
 import React from "react";
 import { Tweet } from "@prisma/client";
-import supabase from "@/libs/supabase";
-import { v4 as uuidv4 } from "uuid";
 import { useQueryClient, useMutation } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import { useUser } from "@/contexts/AuthContext";
-import moment from "moment-timezone";
+import client from "@/libs/axios";
+import supabase from "@/libs/supabase";
 
 const useCreateTweet = () => {
   const queryClient = useQueryClient();
@@ -25,13 +24,16 @@ const useCreateTweet = () => {
 
   async function creTweet(tweet: Tweet) {
     const state = await supabase.from("Tweet").insert({
-      id: uuidv4(),
       userId: user?.id,
-      body: tweet?.body,
-      createdAt: moment.tz(Date.now(), "Asia/Bangkok").format(),
+      body: tweet.body,
+      images: tweet.images,
     });
+    // const state = await client.post("/tweet", {
+    //   userId: user?.id,
+    //   body: tweet?.body,
+    // });
     if (state) {
-      toast("Đăng bài thành công", { autoClose: 3000 });
+      toast.success("Đăng bài thành công", { autoClose: 3000 });
     }
   }
 
