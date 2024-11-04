@@ -6,7 +6,6 @@ import React from "react";
 import { TweetProps } from "@/types";
 import NextLink from "@/components/NextLink";
 import { ColorType, PickVerificationIcon } from "@/icons/PickVerificationIcon";
-import { useUser } from "@/contexts/AuthContext";
 
 export default function TweetReplyMetadata({
   color,
@@ -14,17 +13,16 @@ export default function TweetReplyMetadata({
 }: TweetProps & ColorType) {
   const formattedDate = useFormattedDate(props.createdAt);
 
-  const user = useUser();
 
   return (
     <>
       <div className="flex">
         <div className="flex flex-col">
           <p className="flex items-center text-base font-medium leading-6 text-gray-800 dark:text-white">
-            {user?.user_metadata?.name}
+            {/* {user?.user_metadata?.name} */}
             <PickVerificationIcon color={color} />
             <span className="ml-1 text-sm font-medium leading-5 text-gray-400 transition duration-150 ease-in-out group-hover:text-gray-300">
-              @{user?.user_metadata?.name} · {formattedDate}
+              {/* @{user?.user_metadata?.name} · {formattedDate} */}
             </span>
           </p>
           <span className="text-sm font-medium leading-5 text-gray-400 transition duration-150 ease-in-out group-hover:text-gray-300">

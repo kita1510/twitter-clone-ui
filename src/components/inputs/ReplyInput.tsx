@@ -5,11 +5,10 @@ import ReactTextareaAutosize from "react-textarea-autosize";
 import { useForm, SubmitHandler } from "react-hook-form";
 // import { trpc } from "@utils/trpc";
 import Avatar from "@/components/Avatar";
-import { useUser } from "@/contexts/AuthContext";
 import useReplyTweet from "@/hooks/useReplyTweet";
 import { toast } from "react-toastify";
 // import { getUserSession } from "@hooks/getUserSession";
- 
+
 type Inputs = {
   body: string;
 };
@@ -18,6 +17,7 @@ type InputProps = {
   hideAvatar?: boolean;
   minH?: number;
 };
+
 let avatarSize = 56;
 export default function ReplyInput(
   tweet: any,
@@ -33,7 +33,7 @@ export default function ReplyInput(
 
   const { replyTweet } = useReplyTweet();
   const [tweetReply, setTweetReply] = useState({ id: "", body: "" });
-  console.log(tweetReply.body);
+  // console.log(tweetReply.body);
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     if (tweetReply.body) {
@@ -46,7 +46,6 @@ export default function ReplyInput(
     reset();
   };
 
-  const user = useUser();
   //   let session = getUserSession();
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col ">
@@ -57,7 +56,7 @@ export default function ReplyInput(
           <div className="min-w-fit">
             {" "}
             <Avatar
-              avatarImage={user?.user_metadata?.avatar_url}
+              avatarImage={""}
               size={avatarSize}
             />
           </div>
@@ -79,7 +78,7 @@ export default function ReplyInput(
         <div
           style={{ marginLeft: avatarSize + 8 }}
           className="flex w-full  items-center space-x-2  text-white"
-        > 
+        >
           <a
             href="#"
             className="dark:hover:bg-dim-800 rounded-full text-blue-400 hover:bg-blue-50"

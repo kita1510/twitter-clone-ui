@@ -3,8 +3,8 @@ generator client {
 }
 
 datasource db {
-    provider = "postgres"
-    url      = env("DATABASE_URL")
+    provider = "mysql"
+    url      = env("NEXT_PUBLIC_DATABASE_URL")
 }
 
 model User {
@@ -58,7 +58,7 @@ model Tweet {
     id           String     @id @default(uuid())
     userId       String
     body         String     @db.Text
-    images       String[]
+    images       Json
     likeCount    Int        @default(0)
     retweetCount Int        @default(0)
     replyCount   Int        @default(0)
@@ -95,7 +95,7 @@ model Reply {
     tweet     Tweet    @relation(fields: [tweetId], references: [id])
     tweetId   String
     body      String   @db.Text
-    images    String[]
+    images    Json
     createdAt DateTime @default(now())
 }
 
@@ -107,3 +107,4 @@ model Bookmark {
     tweetId   String
     createdAt DateTime @default(now())
 }
+

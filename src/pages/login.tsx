@@ -9,7 +9,6 @@ import { useRouter } from "next/router";
 import React, { useMemo } from "react";
 import { FaDiscord, FaFacebookF } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
-import { SiSpotify } from "react-icons/si";
 import { BsDiscord, BsGithub } from "react-icons/bs";
 
 const LoginPage: NextPage = () => {

@@ -1,6 +1,3 @@
-/** @format */
-
-import { useUser } from "@/contexts/AuthContext";
 import useLikeTweet from "@/hooks/useLikeTweet";
 import { TweetProps } from "@/types";
 import classNames from "classnames";
@@ -10,7 +7,6 @@ import ReplyModal from "../modals/ReplyModal";
 
 export default function TweetActions(props: TweetProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const user = useUser();
   const { likeTweet, unlikeTweet } = useLikeTweet();
   function closeModal() {
     setIsOpen(false);
@@ -80,7 +76,9 @@ transition ease-in-out hover:text-blue-400 dark:hover:text-blue-400`}
         {props?.retweetCount}
       </div>
       <div
-        onClick={() => interactionState.liked ? unlikeTweet(props) : likeTweet(props) }
+        onClick={() =>
+          interactionState.liked ? unlikeTweet(props) : likeTweet(props)
+        }
         className={classNames(
           ` dark:text-white duration-350 flex flex-1 items-center text-xs transition ease-in-out hover:text-red-600  dark:hover:text-red-600`
         )}

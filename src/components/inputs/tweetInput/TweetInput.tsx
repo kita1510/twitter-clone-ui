@@ -11,7 +11,6 @@ import { FilePreview } from "./FilePreview";
 import { compressFile } from "@/utils/comporessImage";
 import supabase from "@/libs/supabase";
 import { v4 as uuidv4 } from "uuid";
-import { useUser } from "@/contexts/AuthContext";
 import { QueryClient } from "@tanstack/react-query";
 import useCreateTweet from "@/hooks/useCreateTweet";
 // import { getUserSession } from "@hooks/getUserSession";
@@ -26,11 +25,11 @@ export function TweetInput({ onPost }: { onPost?: any }) {
   const [tweet, setTweet] = useState({ body: "", images: selectedFile });
 
   //   let session = getUserSession();
-  const session = useUser();
 
   const { createTweet } = useCreateTweet();
 
   console.log(tweet);
+
 
   const {
     register,
@@ -70,7 +69,6 @@ export function TweetInput({ onPost }: { onPost?: any }) {
       //compress
       let compressedFile = await compressFile(selectedFile, 0.7);
       // Read the contents of the selected file
-      console.log("imageee", compressedFile);
       const reader = new FileReader();
       reader.readAsDataURL(compressedFile);
 
@@ -109,7 +107,7 @@ export function TweetInput({ onPost }: { onPost?: any }) {
     >
       <div className="flex  flex-shrink-0 p-4 pb-0">
         <div className="">
-          <Avatar avatarImage={session?.user_metadata?.avatar_url} />
+          <Avatar avatarImage={""} />
         </div>
         <div className="w-full p-2">
           <ReactTextareaAutosize

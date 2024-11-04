@@ -5,11 +5,9 @@ import { Tweet } from "@prisma/client";
 import supabase from "@/libs/supabase";
 import { useQueryClient, useMutation } from "@tanstack/react-query";
 import { toast } from "react-toastify";
-import { useUser } from "@/contexts/AuthContext";
 
 const useLikeTweet = () => {
   const queryClient = useQueryClient();
-  const user = useUser();
 
   const { mutate: likeTweet } = useMutation({
     mutationFn: like,
@@ -26,7 +24,6 @@ const useLikeTweet = () => {
 
   async function like(tweet: Tweet) {
     const state = await supabase.from("Like").insert({
-      userId: user?.id,
       tweetId: tweet?.id,
     });
     if (state?.status === 201) {

@@ -7,8 +7,6 @@ import MainTweet from "@/components/tweet/MainTweet";
 import { PageHead } from "@/components/PageHead";
 import { TweetInput } from "@/components/inputs/tweetInput/TweetInput";
 import client from "@/libs/axios";
-import { useUser } from "@/contexts/AuthContext";
-import { GoTrueClient } from "@supabase/gotrue-js";
 import supabase from "@/libs/supabase";
 import { replaceSpacing } from "@/utils/replaceText";
 import useTweets from "@/hooks/useTweets";
@@ -20,10 +18,9 @@ export default function HomeContent() {
 
   const { tweets } = useTweets();
   const [user, setUser] = useState();
-  const session = useUser();
 
   async function getUser() {
-    const user = await client.get("/user/" + session?.id);
+    const user = await client.get("/user/");
     setUser(user?.data);
   }
 
@@ -31,22 +28,8 @@ export default function HomeContent() {
 
   // console.log(tweets);
 
-  async function addUser() {
-    await supabase.from("User").insert({
-      id: session?.id,
-      username: replaceSpacing(session?.user_metadata?.name),
-      email: session?.user_metadata?.email,
-      provider: session?.app_metadata?.provider,
-      profileImage: session?.user_metadata?.avatar_url,
-    });
-  }
-
   useEffect(() => {
     getUser();
-  }, []);
-
-  useEffect(() => {
-    addUser();
   }, []);
 
   // console.log(user);
@@ -63,7 +46,9 @@ export default function HomeContent() {
         {/* 
          <NewTweets /> */}
         {tweets
-          ?.sort((a, b) => {return moment(b?.createdAt).unix() -  moment(a?.createdAt).unix()})
+          ?.sort((a, b) => {
+            return moment(b?.createdAt).unix() - moment(a?.createdAt).unix();
+          })
           ?.map((t, i) => (
             <React.Fragment key={t?.id}>
               {/* {console.log( moment(t?.createdAt).unix())} */}

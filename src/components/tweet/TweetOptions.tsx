@@ -5,7 +5,6 @@ import useDeleteTweet from "@/hooks/useDeleteTweet";
 import { Menu, Transition } from "@headlessui/react";
 import { Fragment, useEffect } from "react";
 import classNames from "classnames";
-import { useUser } from "@/contexts/AuthContext";
 import { TweetProps } from "@/types";
 import useBookmark from "@/hooks/useBookmark";
 import { useQueryClient } from "@tanstack/react-query";
@@ -15,8 +14,8 @@ export default function TweetOptions(tweet: TweetProps) {
   const { deleteTweet } = useDeleteTweet();
   const { addBookmark, deleteTweetInBookMark } = useBookmark();
   const queryClient = useQueryClient();
-  const user = useUser();
-  const bookmarked = tweet?.Bookmark?.some((l) => l?.userId === user?.id);
+  // const user = useUser();
+  // const bookmarked = tweet?.Bookmark?.some((l) => l?.userId === user?.id);
   // console.log(bookmarked);
   // console.log(tweet);
   useEffect(() => {
@@ -84,7 +83,7 @@ export default function TweetOptions(tweet: TweetProps) {
                     </button>
                   )}
                 </Menu.Item>
-                {user?.id === tweet?.User?.id && (
+                {/* {user?.id === tweet?.User?.id && ( */}
                   <Menu.Item>
                     {({ active }) => (
                       <button
@@ -102,7 +101,7 @@ export default function TweetOptions(tweet: TweetProps) {
                       </button>
                     )}
                   </Menu.Item>
-                )}
+                {/* )} */}
               </div>
             </Menu.Items>
           </Transition>

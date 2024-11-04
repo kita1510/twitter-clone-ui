@@ -8,10 +8,8 @@ import NextLink from "../NextLink";
 import { Logo } from "../shared/Logo";
 import SidebarItem from "../shared/SidebarItem";
 import { FiLogOut } from "react-icons/fi";
-import { useUser } from "@/contexts/AuthContext";
 import Button from "../shared/Button";
 import { useSession } from "@supabase/auth-helpers-react";
-import supabase from "@/libs/supabase";
 import { replaceSpacing } from "@/utils/replaceText";
 import client from "@/libs/axios";
 import TweetModal from "@/components/modals/TweetModal";
@@ -20,10 +18,9 @@ import useRandomTweets from "@/hooks/useRandomTweets";
 export default function SidebarLeft({ active }: { active?: number }) {
   const [isOpen, setIsOpen] = useState(false);
   const [isOpen2, setIsOpen2] = useState(false);
-  const user = useUser();
   const session = useSession();
 
-  const {tweets} = useRandomTweets()
+  const { tweets } = useRandomTweets();
 
   // console.log(tweets)
 
@@ -53,7 +50,7 @@ export default function SidebarLeft({ active }: { active?: number }) {
             ))}
             <SidebarItem
               Icon={<ProfileIcon />}
-              href={"/" + replaceSpacing(user?.user_metadata?.name)}
+              href={"/" + replaceSpacing("")}
               text="Trang cá nhân"
               index={6}
               active={active}
@@ -75,15 +72,13 @@ export default function SidebarLeft({ active }: { active?: number }) {
               <span className="text-md hidden font-bold xl:block">Tweet</span>
             </a>
           </nav>
-          {user ? (
-            <User />
-          ) : (
+          {
             <NextLink className="flex justify-center" href="/login">
               <Button className="w-40 h-10 bg-red-500 text-white rounded-lg">
                 Login
               </Button>
             </NextLink>
-          )}
+          }
         </div>
       </div>
     </>
@@ -91,11 +86,6 @@ export default function SidebarLeft({ active }: { active?: number }) {
 }
 
 function User() {
-  const user = useUser();
-  async function logout() {
-    await supabase.auth.signOut();
-    window.location.reload();
-  }
   // if (!user) return <></>;
   return (
     <div
@@ -104,15 +94,10 @@ function User() {
     >
       <NextLink href={"/"}>
         <div className="flex flex-row items-center">
-          <img
-            className="w-16 h-16 rounded-full object-cover"
-            src={user?.user_metadata?.avatar_url}
-          />
+          <img className="w-16 h-16 rounded-full object-cover" src={""} />
           <div className="ml-2 hidden xl:block">
             <h1 className="flex text-sm font-bold text-gray-800 dark:text-white">
-              <span className="truncate text-ellipsis ">
-                {user?.user_metadata?.name}
-              </span>
+              <span className="truncate text-ellipsis ">{}</span>
               {/* <PickVerificationIcon color={"blue"} /> */}
             </h1>
             <p className="text-sm text-gray-400">@aaaaaaaaaa</p>
@@ -121,7 +106,7 @@ function User() {
       </NextLink>
       <div>
         <div
-          onClick={logout}
+          // onClick={}
           className="flex items-center rounded-full p-3 text-gray-800 duration-150 hover:bg-gray-700 dark:text-white"
         >
           <FiLogOut className="h-6 w-6" />

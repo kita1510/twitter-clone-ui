@@ -14,7 +14,6 @@ import Avatar from "@/components/Avatar";
 import Button from "@/components/shared/Button";
 import { TweetProps } from "@/types";
 import { TweetDetailsReply } from "./TweetDetailReply";
-import { useUser } from "@/contexts/AuthContext";
 import useReplyTweet from "@/hooks/useReplyTweet";
 
 type Inputs = {
@@ -41,7 +40,6 @@ export default function TweetDetails({
   };
   const { replyTweet } = useReplyTweet();
 
-  const user = useUser();
   return (
     <div className="fade-in flex flex-col px-4   transition-all  ease-in-out">
       <TweetDetailsMetaData tweet={tweet} reply={reply!} />

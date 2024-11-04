@@ -4,13 +4,11 @@ import React from "react";
 import { Tweet } from "@prisma/client";
 import { useQueryClient, useMutation } from "@tanstack/react-query";
 import { toast } from "react-toastify";
-import { useUser } from "@/contexts/AuthContext";
 import client from "@/libs/axios";
 import supabase from "@/libs/supabase";
 
 const useCreateTweet = () => {
   const queryClient = useQueryClient();
-  const user = useUser();
 
   const { mutate: createTweet } = useMutation({
     mutationFn: creTweet,
@@ -24,7 +22,6 @@ const useCreateTweet = () => {
 
   async function creTweet(tweet: Tweet) {
     const state = await supabase.from("Tweet").insert({
-      userId: user?.id,
       body: tweet.body,
       images: tweet.images,
     });

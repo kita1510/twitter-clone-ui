@@ -6,7 +6,6 @@ import supabase from "@/libs/supabase";
 import { v4 as uuidv4 } from "uuid";
 import { useQueryClient, useMutation } from "@tanstack/react-query";
 import { toast } from "react-toastify";
-import { useUser } from "@/contexts/AuthContext";
 import moment from "moment-timezone";
 
 const useUpdateProfile = () => {

@@ -14,7 +14,6 @@ import ReactTextareaAutosize from "react-textarea-autosize";
 import { compressFile } from "@/utils/comporessImage";
 import client from "@/libs/axios";
 import { User } from "@prisma/client";
-import { useUser } from "@/contexts/AuthContext";
 import useUpdateProfile from "@/hooks/useUpdateProfile";
 // import updateSession from "@utils/updateSession";
 
@@ -45,22 +44,10 @@ export default function EditProfileModal({
 
   const [userInfo, setUserInfo] = useState<User | undefined>();
 
-  const session = useUser();
-  async function getUserInfo() {
-    if (session) {
-      const data = await client.get(`/user/${session?.id}`);
-      setUserInfo(data?.data);
-    }
-  }
-
   const [profile, setProfile] = useState({
     bio: "",
     website: "",
   });
-
-  useEffect(() => {
-    getUserInfo();
-  }, []);
 
   // console.log(userInfo);
 
@@ -152,9 +139,6 @@ export default function EditProfileModal({
                   <form
                     onSubmit={(e) => {
                       e.preventDefault();
-                      // updateProfile(userInfo)
-                      updateProfile(profile);
-                      // handleSubmit(onSubmit)}
                     }}
                     className="flex flex-col gap-8"
                   >

@@ -14,7 +14,6 @@ import EditProfileModal from "@/components/modals/EditProfileModal";
 // import { Spinner } from "@components/Spinner";
 import { SEO } from "@/components/SEO";
 import Button from "@/components/shared/Button";
-import { useUser } from "@/contexts/AuthContext";
 import { EditProfileBtn } from "./EditProfileBtn";
 import { User } from "@prisma/client";
 import client from "@/libs/axios";
@@ -23,38 +22,38 @@ import { TweetProps } from "@/types";
 
 const ProfileContent: NextPage = () => {
   const router = useRouter();
-  const user = useUser();
+  // const user = useUser();
   // console.log(user);
   const [userInfo, setUserInfo] = useState<User | undefined>();
   const [tweets, setTweets] = useState<TweetProps[] | undefined>();
 
-  async function getUserInfo() {
-    if (user) {
-      const data = await client.get(`/user/${user?.id}`);
-      setUserInfo(data?.data);
-    }
-  }
+  // async function getUserInfo() {
+  //   if (user) {
+  //     const data = await client.get(`/user/${user?.id}`);
+  //     setUserInfo(data?.data);
+  //   }
+  // }
 
-  async function getTweetsInfo() {
-    if (user) {
-      const data = await client.get(`/tweetuser/${user?.id}`);
-      setTweets(data?.data);
-    }
-  }
+  // async function getTweetsInfo() {
+  //   if (user) {
+  //     const data = await client.get(`/tweetuser/${user?.id}`);
+  //     setTweets(data?.data);
+  //   }
+  // }
 
-  // console.log(user?.id)
+  // // console.log(user?.id)
 
-  useEffect(() => {
-    if (user) {
-      getUserInfo();
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (user) {
+  //     getUserInfo();
+  //   }
+  // }, []);
 
-  useEffect(() => {
-    if (user) {
-      getTweetsInfo();
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (user) {
+  //     getTweetsInfo();
+  //   }
+  // }, []);
 
   let [isOpen, setIsOpen] = useState(false);
   function toggleModal() {
@@ -83,7 +82,7 @@ const ProfileContent: NextPage = () => {
                 <div style={{ marginTop: "-5rem" }}>
                   <Avatar avatarImage={userInfo?.profileImage!} size={130} />
                 </div>
-                {user?.id === userInfo?.id ? (
+                {/* {user?.id === userInfo?.id ? (
                   <EditProfileBtn onClick={toggleModal} />
                 ) : (
                   <Button
@@ -93,7 +92,7 @@ const ProfileContent: NextPage = () => {
                     <></>
                     Follow
                   </Button>
-                )}
+                )} */}
               </div>
               <div className="mt-3 ml-3 w-full justify-center space-y-1">
                 <div>
@@ -133,12 +132,12 @@ const ProfileContent: NextPage = () => {
               </div>
             ))}
           </ul>
-          <EditProfileModal
+          {/* <EditProfileModal
             user={userInfo || null}
             isOpen={isOpen}
             closeModal={toggleModal}
             // onSave={editProfile}
-          />
+          /> */}
         </>
         {/* ) : ( */}
         <>{/* <Spinner /> */}</>

@@ -7,7 +7,6 @@ import { TweetProps } from "@/types";
 import NextLink from "../NextLink";
 import TweetMetadata from "./TweetMetadata";
 import BodyContent from "./BodyContent";
-import { useUser } from "@/contexts/AuthContext";
 import TweetActions from "./TweetAction";
 import TweetOptions from "./TweetOptions";
 import Avatar from "../Avatar";

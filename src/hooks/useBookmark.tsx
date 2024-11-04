@@ -1,6 +1,5 @@
 /** @format */
 
-import { useUser } from "@/contexts/AuthContext";
 import supabase from "@/libs/supabase";
 import { TweetProps } from "@/types";
 import { Tweet, User } from "@prisma/client";
@@ -11,7 +10,6 @@ import { toast } from "react-toastify";
 
 const useBookmark = () => {
   const queryClient = useQueryClient();
-  const user = useUser();
 
   const { mutate: addBookmark } = useMutation({
     mutationFn: add,
@@ -27,7 +25,7 @@ const useBookmark = () => {
 
   async function add(tweet: Tweet) {
     const state = await supabase.from("Bookmark").insert({
-      userId: user?.id,
+      // userId: user?.id,
       tweetId: tweet?.id,
     });
     //   const state = await client.post("/tweet", {
