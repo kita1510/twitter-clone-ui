@@ -6,7 +6,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import Avatar from "@/components/Avatar";
 // import { useSession } from "next-auth/react";
 // import { trpc } from "@utils/trpc";
-import { OtherIcons } from "./OtherIcons";
+import { OtherIcons } from "../../../hooks/OtherIcons";
 import { FilePreview } from "./FilePreview";
 import { compressFile } from "@/utils/comporessImage";
 import supabase from "@/libs/supabase";

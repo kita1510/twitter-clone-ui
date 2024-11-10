@@ -129,9 +129,9 @@ const WhoToFollow = () => {
   // }, [getTopUsers.data]);
   return (
     <div className={`sidebar-bg m-2 rounded-2xl`}>
-      <h1 className="p-3  text-lg font-bold text-white">
+      {/* <h1 className="p-3  text-lg font-bold text-white">
         Who to follow
-      </h1>
+      </h1> */}
       {/* {topUsers?.map((u: any, i: any) => (
         <TwitterAccount key={i} {...u} />
       ))} */}

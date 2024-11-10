@@ -56,7 +56,7 @@ export default function TweetDetails({
         <div className="main-border flex items-center gap-6 border-b pb-5 ">
           <div className="">
             <Avatar
-              avatarImage={user?.user_metadata?.avatar_url || undefined}
+              avatarImage={""}
             />
           </div>
           <form

@@ -60,47 +60,38 @@ export default function TweetOptions(tweet: TweetProps) {
                   {({ active }) => (
                     <button
                       onClick={() => {
-                        !bookmarked
-                          ? addBookmark(tweet)
-                          : deleteTweetInBookMark(tweet);
+                        addBookmark(tweet);
                       }}
                       className={`  ${
                         active ? " bg-secondary-hover" : ""
                       } group flex w-full items-center rounded-md px-2 py-2 text-sm text-white`}
                     >
-                      {!bookmarked ? (
-                        <BookmarkIcon
-                          className="mr-2 h-5 w-5"
-                          aria-hidden="true"
-                        />
-                      ) : (
-                        <BookmarkActiveIcon
-                          className="mr-2 h-5 w-5"
-                          aria-hidden="true"
-                        />
-                      )}
+                      <BookmarkIcon
+                        className="mr-2 h-5 w-5"
+                        aria-hidden="true"
+                      />
                       Lưu bài viết
                     </button>
                   )}
                 </Menu.Item>
                 {/* {user?.id === tweet?.User?.id && ( */}
-                  <Menu.Item>
-                    {({ active }) => (
-                      <button
-                        onClick={() => deleteTweet(tweet?.id)}
-                        className={classNames(
-                          active ? " bg-secondary-hover" : "",
-                          "group flex w-full items-center rounded-md px-2 py-2 text-sm text-white"
-                        )}
-                      >
-                        <DeleteIcon
-                          className="mr-2 h-5 w-5 text-violet-400"
-                          aria-hidden="true"
-                        />
-                        Xóa
-                      </button>
-                    )}
-                  </Menu.Item>
+                <Menu.Item>
+                  {({ active }) => (
+                    <button
+                      onClick={() => deleteTweet(tweet?.id)}
+                      className={classNames(
+                        active ? " bg-secondary-hover" : "",
+                        "group flex w-full items-center rounded-md px-2 py-2 text-sm text-white"
+                      )}
+                    >
+                      <DeleteIcon
+                        className="mr-2 h-5 w-5 text-violet-400"
+                        aria-hidden="true"
+                      />
+                      Xóa
+                    </button>
+                  )}
+                </Menu.Item>
                 {/* )} */}
               </div>
             </Menu.Items>

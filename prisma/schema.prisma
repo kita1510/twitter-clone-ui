@@ -23,13 +23,12 @@ model User {
     followersCount   Int          @default(0)
     followingCount   Int          @default(0)
     likeCount        Int          @default(0)
+    googleId         String
     tweets           Tweet[]
     likes            Like[]
     retweets         Retweet[]
     replies          Reply[]
     bookmarks        Bookmark[]
-    messagesSent     Message[]    @relation("sender")
-    messagesReceived Message[]    @relation("recipient")
     followers        UserFollow[] @relation("follower")
     following        UserFollow[] @relation("following")
 }
@@ -43,16 +42,6 @@ model UserFollow {
     createdAt   DateTime @default(now())
 }
 
-model Message {
-    id          String   @id @default(uuid())
-    sender      User     @relation("sender", fields: [senderId], references: [id])
-    senderId    String
-    recipient   User     @relation("recipient", fields: [recipientId], references: [id])
-    recipientId String
-    body        String   @db.Text
-    image       String?
-    createdAt   DateTime @default(now())
-}
 
 model Tweet {
     id           String     @id @default(uuid())
@@ -107,4 +96,3 @@ model Bookmark {
     tweetId   String
     createdAt DateTime @default(now())
 }
-

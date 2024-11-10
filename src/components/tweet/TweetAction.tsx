@@ -31,7 +31,7 @@ export default function TweetActions(props: TweetProps) {
   }
 
   useEffect(() => {
-    const isLiked = props?.Like?.some((l) => l?.userId === user?.id);
+    const isLiked = props?.Like?.some(a=>a);
     // const isRetweeted = props.retweets.some(
     //     (r) => r.userId === data?.userData.id
     // );
