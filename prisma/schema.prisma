@@ -24,6 +24,7 @@ model User {
     followingCount   Int          @default(0)
     likeCount        Int          @default(0)
     googleId         String
+    sessionToken    String
     tweets           Tweet[]
     likes            Like[]
     retweets         Retweet[]
